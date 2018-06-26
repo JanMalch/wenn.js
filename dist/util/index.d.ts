@@ -1,0 +1,14 @@
+export declare function instanceOf(instance: any): (value: any) => boolean;
+export declare function typeOf(type: string): (value: any) => boolean;
+export declare function isFunction(value: any): boolean;
+export declare function isNumeric(value: any): boolean;
+export declare function startsWith(prefix: string): (value: string) => boolean;
+export declare function includes(substring: string): (value: string) => boolean;
+export declare function endsWith(suffix: string): (value: string) => boolean;
+export declare function isEven(value: number): boolean;
+export declare function isOdd(value: number): boolean;
+export declare function isPositive(value: number): boolean;
+export declare function isNegative(value: number): boolean;
+export declare function inRange(min: number, max: number): (value: number) => boolean;
+export declare function inArray<T>(array: T[]): (value: T) => boolean;
+export declare function not(fn: (value: any) => boolean): (value: any) => boolean;

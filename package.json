@@ -1,0 +1,31 @@
+{
+  "name": "wenn",
+  "version": "0.0.1",
+  "description": "A utility function similar to Kotlin's when",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "mocha --reporter spec",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanMalch/wenn.js.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "TypeScript",
+    "Utility"
+  ],
+  "author": "Jan Malchert <janmalch@gmail.com> (https://github.com/JanMalch)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JanMalch/wenn.js/issues"
+  },
+  "homepage": "https://github.com/JanMalch/wenn.js#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "typescript": "^2.9.2"
+  }
+}
