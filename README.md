@@ -46,7 +46,7 @@ const result = wenn(value,
 // ERROR: No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.
 ``` 
 
-You can look at some examples in the [test cases](https://github.com/JanMalch/wenn.js/blob/master/test.testjs).
+You can look at some examples in the [test cases](https://github.com/JanMalch/wenn.js/blob/master/test/test.js).
 
 ## Comparison with Kotlin's `when`
 
@@ -175,7 +175,7 @@ npm run test
 
 ## Work in Progress
 
-- [ ] make Cases chainable, to propagate new values
+- [ ] write `wennChained` function, to make Cases chainable, to propagate new values
 - [ ] improve error messages and typings (?) 
 - [ ] gladly accept any recommendations and help
 
