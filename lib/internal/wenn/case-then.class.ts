@@ -2,7 +2,7 @@ import {ICaseThen, Then, When} from "./models";
 
 export class CaseThen<T,E> extends ICaseThen<T, E>{
 
-    public then: Then<T, E> = undefined as any;
+    public then: Then<T, E> = undefined;
     public cases: When<T>[];
 
     constructor(..._cases: When<T>[]) {

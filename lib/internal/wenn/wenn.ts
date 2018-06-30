@@ -1,4 +1,3 @@
-
 import {ELSE} from "./symbols";
 import {ICaseThen} from "./models";
 import {applyOrReturn, returnsTrueOrEquals} from "./util";

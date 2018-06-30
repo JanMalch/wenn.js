@@ -110,11 +110,11 @@ describe("ELSE", () => {
             wenn("C",
                 Case("A").Then(1),
                 Case("B").Then(2))
-        }).to.throw(Error, "No case matched, but also no ELSE case given. You can add Case(ELSE).Then(null) to your cases to prevent an error.");
+        }).to.throw(Error, "No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.");
 
     });
 
-    it("Case(ELSE).Then(null) should always work", () => {
+    it("Else(null) should always work", () => {
         const value = "Test";
         const result = wenn(value,
             Case("Foo").Then(0),
@@ -125,7 +125,7 @@ describe("ELSE", () => {
 
     });
 
-    it("Case(ELSE).Then(null) should also work with functions in Then", () => {
+    it("Else(null) should also work with functions in Then", () => {
         const value = "Test";
         wenn(value,
             Case("Foo").Then(() => void("Foo")),

@@ -1,7 +1,5 @@
 // types
 
-import {applyOrReturn} from "../internal/wenn/util";
-
 export function instanceOf(instance: any): (value: any) => boolean {
     return (value: any) => value instanceof instance;
 }

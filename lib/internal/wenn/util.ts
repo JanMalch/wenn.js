@@ -2,7 +2,7 @@ import {Then, When, WhenFunction} from "./models";
 import {isFunction} from "../../util";
 
 export function applyOrReturn<T, E>(input: T, funOrVal: Then<T, E>) {
-    return isFunction(funOrVal) ? funOrVal(input) : funOrVal;
+    return isFunction(funOrVal) ? (funOrVal as Function)(input) : funOrVal;
 }
 
 export function returnsTrueOrEquals<T>(value: T, Case: When<T>): boolean {
