@@ -179,16 +179,9 @@ npm run test
 - [ ] improve error messages and typings (?) 
 - [ ] gladly accept any recommendations and help
 
-I also considered writing the cases with the following syntax:
-```JavaScript
-wenn(x,
-  ["Foo", 0],
-  [["A", "B"], 1],
-  [startsWith("X"), 2],
-  [["Y", v => v.charAt(2) === "Z"], 3]
-);
-```
-But i thought readability would suffer. Please let me know what you think of this syntax and naming conventions in general.
+## Special Thanks
+
+Special thanks to **[@MakroCow](https://github.com/MakroCow)** for helping out on the syntax and beta testing.
 
 ## License
 MIT
