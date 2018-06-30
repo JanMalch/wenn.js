@@ -1,7 +1,6 @@
 'use strict';
-
 const expect = require('chai').expect;
-const { wenn, Case, Else, Then } = require("../dist/index.js");
+const {wenn, Case, Else} = require("../dist/index.js");
 const Util = require("../dist/util/index");
 
 describe("Basics", () => {
@@ -28,14 +27,14 @@ describe("Basics", () => {
     });
 
     it("negation with not should work", () => {
-       const value = "Foo";
+        const value = "Foo";
 
-       const result = wenn(value,
-           Case(Util.not(Util.startsWith("B"))).Then("doesn't start with B"),
-           Else("starts with B")
-       );
+        const result = wenn(value,
+            Case(Util.not(Util.startsWith("B"))).Then("doesn't start with B"),
+            Else("starts with B")
+        );
 
-       expect(result).to.equal("doesn't start with B");
+        expect(result).to.equal("doesn't start with B");
     });
 });
 
@@ -111,11 +110,11 @@ describe("ELSE", () => {
             wenn("C",
                 Case("A").Then(1),
                 Case("B").Then(2))
-        }).to.throw(Error, "No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.");
+        }).to.throw(Error, "No case matched, but also no ELSE case given. You can add Case(ELSE).Then(null) to your cases to prevent an error.");
 
     });
 
-    it("Else(null) should always work", () => {
+    it("Case(ELSE).Then(null) should always work", () => {
         const value = "Test";
         const result = wenn(value,
             Case("Foo").Then(0),
@@ -126,7 +125,7 @@ describe("ELSE", () => {
 
     });
 
-    it("Else(null) should also work with functions in Then", () => {
+    it("Case(ELSE).Then(null) should also work with functions in Then", () => {
         const value = "Test";
         wenn(value,
             Case("Foo").Then(() => void("Foo")),
@@ -141,7 +140,7 @@ describe("wenn's utils", () => {
 
     it("should find value in array", () => {
         const value = 4;
-        const testArray = [1,2,3,4,5,6];
+        const testArray = [1, 2, 3, 4, 5, 6];
 
         const result = wenn(value,
             Case(Util.inArray(testArray)).Then("in array"),
@@ -158,7 +157,7 @@ describe("Kotlin and README test cases", () => {
     it("Negate, range, in array", () => {
 
         const x = 25;
-        const validNumbers = [30,40];
+        const validNumbers = [30, 40];
 
         const result = wenn(x,
             Case(Util.inRange(1, 10)).Then("x is in the range"),
@@ -174,8 +173,8 @@ describe("Kotlin and README test cases", () => {
     it("Functions of objects as cases", () => {
 
         const x = {
-          isOdd: () => false,
-          isEven: () => true
+            isOdd: () => false,
+            isEven: () => true
         };
 
         const result = wenn(true,
@@ -186,4 +185,114 @@ describe("Kotlin and README test cases", () => {
 
         expect(result).to.equal("x is even");
     });
+});
+
+describe("wenn's case util functions", () => {
+
+    it("should use instanceOf properly", () => {
+        const value = new String("Test");
+        const fun = Util.instanceOf(String);
+        const result = fun(value);
+
+        expect(result).to.equal(true);
+    });
+
+    it("should use typeOf properly", () => {
+        const value = 4;
+        const fun = Util.typeOf("number");
+        const result = fun(value);
+
+        expect(result).to.equal(true);
+    });
+
+    it("should use isFunction properly", () => {
+        const value = () => undefined;
+        const result = Util.isFunction(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use isNumeric properly", () => {
+        const value = 4;
+        const result = Util.isNumeric(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use startsWith properly", () => {
+        const value = "FooBar";
+        const fun = Util.startsWith("Foo");
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use includes properly", () => {
+        const value = "FooBar";
+        const fun = Util.includes("ooB");
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use endsWith properly", () => {
+        const value = "FooBar";
+        const fun = Util.endsWith("Bar");
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use isEven properly", () => {
+        const value = 4;
+        const result = Util.isEven(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use isOdd properly", () => {
+        const value = 5;
+        const result = Util.isOdd(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use isPositive properly", () => {
+        const value = 4;
+        const result = Util.isPositive(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use isNegative properly", () => {
+        const value = -4;
+        const result = Util.isNegative(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should interpret 0 as not positive", () => {
+        const value = 0;
+        const result = Util.isNegative(value);
+        expect(result).to.equal(false);
+    });
+
+    it("should interpret 0 as not negative", () => {
+        const value = 0;
+        const result = Util.isPositive(value);
+        expect(result).to.equal(false);
+    });
+
+    it("should use inRange properly", () => {
+        const value = 4;
+        const fun = Util.inRange(0, 10);
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use inArray properly", () => {
+        const value = "Test";
+        const fun = Util.inArray(["Foo", "Test", "Bar"]);
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
+    it("should use not properly", () => {
+        const value = -4;
+        const fun =  Util.not(Util.isPositive);
+        const result = fun(value);
+        expect(result).to.equal(true);
+    });
+
 });
