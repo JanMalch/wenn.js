@@ -1,12 +1,13 @@
 {
   "name": "wenn",
   "version": "0.0.1",
-  "description": "A utility function similar to Kotlin's when",
+  "description": "A simple but powerful utility function, inspired by Kotlin's when.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha --reporter spec",
-    "build": "tsc"
+    "build": "tsc",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
   "homepage": "https://github.com/JanMalch/wenn.js#readme",
   "devDependencies": {
     "chai": "^4.1.2",
+    "coveralls": "^3.0.2",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "typescript": "^2.9.2"
   }
