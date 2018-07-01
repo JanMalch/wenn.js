@@ -136,7 +136,7 @@ describe("ELSE", () => {
 
 });
 
-describe("wenn's utils", () => {
+describe("wenn's utils for cases", () => {
 
     it("should find value in array", () => {
         const value = 4;
