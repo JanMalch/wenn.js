@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/JanMalch/wenn.js.svg?branch=master)](https://travis-ci.org/JanMalch/wenn.js) [![Coverage Status](https://coveralls.io/repos/github/JanMalch/wenn.js/badge.svg?branch=master)](https://coveralls.io/github/JanMalch/wenn.js?branch=master)
+
 # wenn.js
 A simple but powerful utility function, inspired by Kotlin's [`when`](https://kotlinlang.org/docs/reference/control-flow.html#when-expression).
 
