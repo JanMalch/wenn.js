@@ -5,4 +5,3 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./internal/wenn/wenn"));
 __export(require("./internal/wenn/keywords"));
-__export(require("./internal/wenn/models"));

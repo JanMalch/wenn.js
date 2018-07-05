@@ -296,3 +296,16 @@ describe("wenn's case util functions", () => {
     });
 
 });
+
+describe("interal classes", () => {
+
+    it("Case should not return null", () => {
+        const result = Case(0);
+        expect(result).to.not.be.null;
+    });
+
+    it("Case should not return null", () => {
+        const result = Case(0).Then(0);
+        expect(result).to.not.be.null;
+    })
+});

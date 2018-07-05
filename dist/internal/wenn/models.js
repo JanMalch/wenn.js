@@ -1,5 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class ICaseThen {
+/**
+ * This interface represents a Case-Then-Pair.
+ *
+export interface ICaseThen<T, E> {
 }
-exports.ICaseThen = ICaseThen;
+
+/**
+ * This interface prepares a {@link ICaseThen Case-Then-Pair}
+ *
+export interface ICase<T, E> {
+
+    Then(then: Then<T, E>): ICaseThen<T, E>;
+}*/ 
