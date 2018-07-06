@@ -15,16 +15,3 @@ export declare type ThenFunction<T, E> = (value?: T) => E;
  * type alias for {@link ThenFunction} or value or undefined
  */
 export declare type Then<T, E> = ThenFunction<T, E> | E | undefined;
-/**
- * This interface represents a Case-Then-Pair.
- *
-export interface ICaseThen<T, E> {
-}
-
-/**
- * This interface prepares a {@link ICaseThen Case-Then-Pair}
- *
-export interface ICase<T, E> {
-
-    Then(then: Then<T, E>): ICaseThen<T, E>;
-}*/ 

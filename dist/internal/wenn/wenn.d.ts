@@ -2,7 +2,7 @@ import { ELSE } from "./symbols";
 import { CaseThen } from "./classes";
 /**
  * Pass in a value and an arbitrary amount of cases to be checked for that value.
- * A case will match if a primitive values strictly (===) equals the value or if a function returns true.
+ * A case will match if a primitive values strictly equals (===) the value or if a function returns true.
  * One case supports multiple conditions, of which one has to match.
  * Use an {@link #Else Else()} case to have a default fallback. If a default is needed but not implemented, a runtime error will be thrown.
  * It's the core function of the wenn.js library. It can be used as a statement or as an expression.
