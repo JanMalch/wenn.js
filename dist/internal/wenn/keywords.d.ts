@@ -14,4 +14,4 @@ export declare function Else<E>(then: Then<typeof ELSE, E>): CaseThen<typeof ELS
  * @returns {Case<T, E>} an instance of a {@link CaseBuilder} that prepares for a {@link CaseThen Case-Then-Pair}
  * @constructor
  */
-export declare function Case<T, E>(...when: When<T>[]): CaseBuilder<T, E>;
+export declare function Case<T>(...when: When<T>[]): CaseBuilder<T>;

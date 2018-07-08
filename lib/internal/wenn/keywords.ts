@@ -9,7 +9,7 @@ import {ELSE} from "./symbols";
  * @constructor
  */
 export function Else<E>(then: Then<typeof ELSE, E>): CaseThen<typeof ELSE, E> {
-    return new CaseBuilder<typeof ELSE, E>([ELSE]).Then(then);
+    return new CaseBuilder<typeof ELSE>([ELSE]).Then<E>(then);
 }
 
 /**
@@ -18,6 +18,6 @@ export function Else<E>(then: Then<typeof ELSE, E>): CaseThen<typeof ELSE, E> {
  * @returns {Case<T, E>} an instance of a {@link CaseBuilder} that prepares for a {@link CaseThen Case-Then-Pair}
  * @constructor
  */
-export function Case<T, E>(...when: When<T>[]): CaseBuilder<T, E> {
-    return new CaseBuilder<T, E>(when);
+export function Case<T>(...when: When<T>[]): CaseBuilder<T> {
+    return new CaseBuilder<T>(when);
 }

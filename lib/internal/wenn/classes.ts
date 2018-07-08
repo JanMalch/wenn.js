@@ -6,11 +6,11 @@ export class CaseThen<T, E> {
     }
 }
 
-export class CaseBuilder<T, E>  {
+export class CaseBuilder<T>  {
     constructor(public readonly cases: When<T>[]) {
     }
 
-    Then(then: Then<T, E>): CaseThen<T, E> {
+    Then<E>(then: Then<T, E>): CaseThen<T, E> {
         return new CaseThen<T, E>(this.cases, then);
     }
 }

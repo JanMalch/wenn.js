@@ -12,7 +12,7 @@ npm install wenn.js --save
 ## Basic Usage
 
  
-```typescript  
+```JavaScript  
 const value = "Foo";  
 const result = wenn(value,  
   Case("Foo").Then(0),  
@@ -21,7 +21,7 @@ const result = wenn(value,
 // result == 0
 ```  
 
-```typescript  
+```JavaScript  
 const value = "Foo";  
 wenn(value,  
   Case("Foo").Then(() => console.log("Value is 'Foo'")),  
@@ -29,7 +29,7 @@ wenn(value,
 );  
 ```  
 
-```typescript  
+```JavaScript  
 const value = "Test";  
 const result = wenn(value,  
   Case("Foo").Then(0),  
@@ -39,7 +39,7 @@ const result = wenn(value,
 // result == -1
 ``` 
 > If an Else case would be required but not found, there will be an error. You can always add `Else(null)`.
-```typescript  
+```javascript  
 const value = "Test";  
 const result = wenn(value,  
   Case("Foo").Then(0),  
@@ -47,6 +47,19 @@ const result = wenn(value,
 );  
 // ERROR: No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.
 ``` 
+
+### Usage in TypeScript
+
+Infer the types to prevent errors while compiling.
+
+```typescript
+const value: string = "JanJan";
+
+const result: string = wenn(value,
+  Case("Foo").Then("A"),
+  Case("Bar").Then("B"),
+  Else("?"));
+```
 
 You can look at some examples in the [test cases](https://github.com/JanMalch/wenn.js/blob/master/test/test.js).
 

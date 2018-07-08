@@ -4,8 +4,8 @@ export declare class CaseThen<T, E> {
     readonly then: Then<T, E>;
     constructor(cases: When<T>[], then: Then<T, E>);
 }
-export declare class CaseBuilder<T, E> {
+export declare class CaseBuilder<T> {
     readonly cases: When<T>[];
     constructor(cases: When<T>[]);
-    Then(then: Then<T, E>): CaseThen<T, E>;
+    Then<E>(then: Then<T, E>): CaseThen<T, E>;
 }
