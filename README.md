@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/JanMalch/wenn.js.svg?branch=master)](https://travis-ci.org/JanMalch/wenn.js) [![Coverage Status](https://coveralls.io/repos/github/JanMalch/wenn.js/badge.svg?branch=master)](https://coveralls.io/github/JanMalch/wenn.js?branch=master)
+[![npm version](https://badge.fury.io/js/wenn.svg)](https://badge.fury.io/js/wenn) [![Build Status](https://travis-ci.org/JanMalch/wenn.js.svg?branch=master)](https://travis-ci.org/JanMalch/wenn.js) [![Coverage Status](https://coveralls.io/repos/github/JanMalch/wenn.js/badge.svg?branch=master)](https://coveralls.io/github/JanMalch/wenn.js?branch=master)
 
 # wenn.js
 A simple but powerful utility function, inspired by Kotlin's [`when`](https://kotlinlang.org/docs/reference/control-flow.html#when-expression).
@@ -14,15 +14,18 @@ npm install wenn.js --save
  
 ```JavaScript  
 const value = "Foo";  
+
 const result = wenn(value,  
   Case("Foo").Then(0),  
   Case("Bar").Then(1)
 );  
+
 // result == 0
 ```  
 
 ```JavaScript  
 const value = "Foo";  
+
 wenn(value,  
   Case("Foo").Then(() => console.log("Value is 'Foo'")),  
   Case("Bar").Then(() => console.log("Value is 'Bar'"))
@@ -31,21 +34,25 @@ wenn(value,
 
 ```JavaScript  
 const value = "Test";  
+
 const result = wenn(value,  
   Case("Foo").Then(0),  
   Case("Bar").Then(1),  
   Else(-1)
 );  
+
 // result == -1
 ``` 
-> If an Else case would be required but not found, there will be an error. You can always add `Else(null)`.
+> If an Else case would be required but not found, there will be an error. You can always add `Else(undefined)`.
 ```javascript  
 const value = "Test";  
+
 const result = wenn(value,  
   Case("Foo").Then(0),  
   Case("Bar").Then(1)
 );  
-// ERROR: No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.
+
+// ERROR: No case matched, but also no ELSE case given. You can add Else(undefined) to your cases to prevent an error.
 ``` 
 
 ### Usage in TypeScript
@@ -53,13 +60,68 @@ const result = wenn(value,
 Infer the types to prevent errors while compiling.
 
 ```typescript
-const value: string = "JanJan";
+const value: string = "Test";
 
 const result: string = wenn(value,
   Case("Foo").Then("A"),
   Case("Bar").Then("B"),
   Else("?"));
 ```
+
+### `wennChain` usage
+
+`wennChain` allows you to propagate a value through all cases, until it doesn't match anymore or there's a `Break()`.
+
+```javascript
+const value = 4;
+
+const result = wennChain(value,
+    Case(isNegative).Then(0),
+    Break(),
+    Case(isPositive).Then(x => x + 1),
+    Case(always).Then(x => x * 4),
+    Break(),
+    Case(always).Then(x => x * 3)
+);
+
+// result === 20
+```
+
+### `wennElvis` usage
+
+`wennElvis` builds on top of `wennChain`. It's basically chained `isntUndefined` cases, with your given thens.
+It allows a string with dot notation or even function calls, to access nested properties.
+If a property wasn't found or a function call returns undefined, the function will safely return undefined.
+
+```javascript
+const value = {
+    data: {
+        persons: [
+            {
+                name: "A",
+                age: 18
+            },
+            {
+                name: "B",
+                age: 21
+            },
+            {
+                name: "C",
+                age: 46
+            }
+        ]
+    }
+};
+
+const result = wennElvis(value,
+    "data.persons",
+    arr => arr.find(v => v.age > 100),
+    "name"
+);
+
+// result === undefined, and no error
+```
+
 
 You can look at some examples in the [test cases](https://github.com/JanMalch/wenn.js/blob/master/test/test.js).
 
@@ -187,12 +249,6 @@ wenn(true,
 ```sh
 npm run test
 ```
-
-## Work in Progress
-
-- [ ] write `wennChained` function, to make Cases chainable, to propagate new values
-- [ ] improve error messages and typings (?) 
-- [ ] gladly accept any recommendations and help
 
 ## Special Thanks
 
