@@ -15,6 +15,14 @@ export function isNumeric(value: any): boolean {
     return !isNaN(parseFloat(value)) && isFinite(value);
 }
 
+export function isUndefined(value: any): boolean {
+    return value === undefined;
+}
+
+export function isntUndefined(value: any): boolean {
+    return value !== undefined;
+}
+
 // strings
 
 export function startsWith(prefix: string): (value: string) => boolean {
@@ -40,10 +48,18 @@ export function isOdd(value: number): boolean {
     return value % 2 == 1;
 }
 
+/**
+ * isPositive will only return true if the value is greater than 0.
+ * @param value the value to be checked
+ */
 export function isPositive(value: number): boolean {
     return value > 0;
 }
 
+/**
+ * isNegative will only return true if the value is less than 0.
+ * @param value the value to be checked
+ */
 export function isNegative(value: number): boolean {
     return value < 0;
 }
@@ -60,5 +76,9 @@ export function inArray<T>(array: T[]): (value: T) => boolean {
 
 // other
 export function not(fn: (value: any) => boolean): (value: any) => boolean {
-    return (value: any) => !fn(value);
+    return (value: any) => !(fn(value));
+}
+
+export function always(value?: any): boolean {
+    return true;
 }

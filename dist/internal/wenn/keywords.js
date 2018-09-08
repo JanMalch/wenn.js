@@ -22,3 +22,7 @@ function Case(...when) {
     return new classes_1.CaseBuilder(when);
 }
 exports.Case = Case;
+function Break() {
+    return new classes_1.CaseBuilder([symbols_1.BREAK]).Then(undefined);
+}
+exports.Break = Break;

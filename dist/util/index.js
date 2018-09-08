@@ -17,6 +17,14 @@ function isNumeric(value) {
     return !isNaN(parseFloat(value)) && isFinite(value);
 }
 exports.isNumeric = isNumeric;
+function isUndefined(value) {
+    return value === undefined;
+}
+exports.isUndefined = isUndefined;
+function isntUndefined(value) {
+    return value !== undefined;
+}
+exports.isntUndefined = isntUndefined;
 // strings
 function startsWith(prefix) {
     return (value) => !!value.startsWith && value.startsWith(prefix);
@@ -39,10 +47,18 @@ function isOdd(value) {
     return value % 2 == 1;
 }
 exports.isOdd = isOdd;
+/**
+ * isPositive will only return true if the value is greater than 0.
+ * @param value the value to be checked
+ */
 function isPositive(value) {
     return value > 0;
 }
 exports.isPositive = isPositive;
+/**
+ * isNegative will only return true if the value is less than 0.
+ * @param value the value to be checked
+ */
 function isNegative(value) {
     return value < 0;
 }
@@ -58,6 +74,10 @@ function inArray(array) {
 exports.inArray = inArray;
 // other
 function not(fn) {
-    return (value) => !fn(value);
+    return (value) => !(fn(value));
 }
 exports.not = not;
+function always(value) {
+    return true;
+}
+exports.always = always;

@@ -9,6 +9,6 @@ import { CaseThen } from "./classes";
  * @param {T} value the value to be switched
  * @param {CaseThen<symbol | T, E>} cases varargs of {@link CaseThen Case-Then-Pairs} to be checked
  * @returns {E} the resulting Then value of the first matching case
- * @throws {Error} A runtime error will be thrown, if no {@link #Else Else()} case was given, but is needed
+ * @throws {NoElseError} A runtime error will be thrown, if no {@link #Else Else()} case was given, but is needed
  */
 export declare function wenn<T, E>(value: T, ...cases: CaseThen<T | typeof ELSE, E>[]): E;

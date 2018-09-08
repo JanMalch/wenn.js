@@ -1,6 +1,7 @@
 import {ELSE} from "./symbols";
 import {applyOrReturn, returnsTrueOrEquals} from "./util";
 import {CaseThen} from "./classes";
+import {NoElseError} from "./errors";
 
 /**
  * Pass in a value and an arbitrary amount of cases to be checked for that value.
@@ -11,7 +12,7 @@ import {CaseThen} from "./classes";
  * @param {T} value the value to be switched
  * @param {CaseThen<symbol | T, E>} cases varargs of {@link CaseThen Case-Then-Pairs} to be checked
  * @returns {E} the resulting Then value of the first matching case
- * @throws {Error} A runtime error will be thrown, if no {@link #Else Else()} case was given, but is needed
+ * @throws {NoElseError} A runtime error will be thrown, if no {@link #Else Else()} case was given, but is needed
  */
 export function wenn<T, E>(value: T, ...cases: CaseThen<T | typeof ELSE, E>[]): E {
     let elseThen: any;
@@ -37,6 +38,6 @@ export function wenn<T, E>(value: T, ...cases: CaseThen<T | typeof ELSE, E>[]): 
     if (elseThenFound) {
         return applyOrReturn(value, elseThen);
     } else {
-        throw new Error("No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.");
+        throw new NoElseError();
     }
 }

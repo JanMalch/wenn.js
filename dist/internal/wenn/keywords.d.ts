@@ -1,6 +1,6 @@
 import { Then, When } from "./models";
 import { CaseThen, CaseBuilder } from "./classes";
-import { ELSE } from "./symbols";
+import { BREAK, ELSE } from "./symbols";
 /**
  * This function creates a new {@link CaseThen Case-Then-Pair} which acts as the default case, if no other case matched
  * @param {Then<typeof ELSE, E>} then the {@link Then} value or function to be returned or executed if no other case matched
@@ -15,3 +15,4 @@ export declare function Else<E>(then: Then<typeof ELSE, E>): CaseThen<typeof ELS
  * @constructor
  */
 export declare function Case<T>(...when: When<T>[]): CaseBuilder<T>;
+export declare function Break<E>(): CaseThen<typeof BREAK, E>;

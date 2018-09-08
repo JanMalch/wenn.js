@@ -1,6 +1,6 @@
 import {Then, When} from "./models";
 import {CaseThen, CaseBuilder} from "./classes";
-import {ELSE} from "./symbols";
+import {BREAK, ELSE} from "./symbols";
 
 /**
  * This function creates a new {@link CaseThen Case-Then-Pair} which acts as the default case, if no other case matched
@@ -20,4 +20,9 @@ export function Else<E>(then: Then<typeof ELSE, E>): CaseThen<typeof ELSE, E> {
  */
 export function Case<T>(...when: When<T>[]): CaseBuilder<T> {
     return new CaseBuilder<T>(when);
+}
+
+
+export function Break<E>(): CaseThen<typeof BREAK, E> {
+    return new CaseBuilder<typeof BREAK>([BREAK]).Then<E>(undefined);
 }

@@ -1,7 +1,9 @@
 'use strict';
-const expect = require('chai').expect;
-const {wenn, Case, Else} = require("../dist/index.js");
-const Util = require("../dist/util/index");
+
+const {expect} = require('chai');
+const {wenn, Case, Else, Break, wennChain, wennElvis, NoElseError} = require("../dist");
+const {elvis, elvisCurried} = require("../dist/internal/wenn/wenn.elvis");
+const Util = require("../dist/util");
 
 describe("Basics", () => {
     it("should choose the correct case", () => {
@@ -22,8 +24,6 @@ describe("Basics", () => {
             Case(2).Then(() => void 0),
             Else(() => console.log("x is neither 1 nor 2"))
         );
-
-
     });
 
     it("negation with not should work", () => {
@@ -110,27 +110,27 @@ describe("ELSE", () => {
             wenn("C",
                 Case("A").Then(1),
                 Case("B").Then(2))
-        }).to.throw(Error, "No case matched, but also no ELSE case given. You can add Else(null) to your cases to prevent an error.");
+        }).to.throw(NoElseError);
 
     });
 
-    it("Else(null) should always work", () => {
+    it("Else(undefined) should always work", () => {
         const value = "Test";
         const result = wenn(value,
             Case("Foo").Then(0),
             Case("Bar").Then(1),
-            Else(null));
+            Else(undefined));
 
-        expect(result).to.equal(null);
+        expect(result).to.equal(undefined);
 
     });
 
-    it("Else(null) should also work with functions in Then", () => {
+    it("Else(undefined) should also work with functions in Then", () => {
         const value = "Test";
         wenn(value,
             Case("Foo").Then(() => void("Foo")),
             Case("Bar").Then(() => void("Bar")),
-            Else(null)
+            Else(undefined)
         );
     });
 
@@ -190,8 +190,8 @@ describe("Kotlin and README test cases", () => {
 describe("wenn's case util functions", () => {
 
     it("should use instanceOf properly", () => {
-        const value = new String("Test");
-        const fun = Util.instanceOf(String);
+        const value = new Map();
+        const fun = Util.instanceOf(Map);
         const result = fun(value);
 
         expect(result).to.equal(true);
@@ -290,11 +290,30 @@ describe("wenn's case util functions", () => {
 
     it("should use not properly", () => {
         const value = -4;
-        const fun =  Util.not(Util.isPositive);
+        const fun = Util.not(Util.isPositive);
         const result = fun(value);
         expect(result).to.equal(true);
     });
 
+    it("should use always properly", () => {
+        const value = -4;
+        const result = Util.always(value);
+        expect(result).to.equal(true);
+    });
+
+
+    it("should use isUndefined properly", () => {
+        const value = undefined;
+        const result = Util.isUndefined(value);
+        expect(result).to.equal(true);
+    });
+
+
+    it("should use isntUndefined properly", () => {
+        const value = "undefined";
+        const result = Util.isntUndefined(value);
+        expect(result).to.equal(true);
+    });
 });
 
 describe("interal classes", () => {
@@ -308,4 +327,174 @@ describe("interal classes", () => {
         const result = Case(0).Then(0);
         expect(result).to.not.be.null;
     })
+});
+
+describe("wenn chain", () => {
+
+    it("Basic chaining should work", () => {
+        const value = 4;
+
+        const result = wennChain(value,
+            Case(Util.isPositive).Then(x => x + 1),
+            Case(x => x > 4).Then(x => x * 4),
+            Case(Util.always).Then(x => x * 3)
+        );
+
+        expect(result).to.equal(60);
+    });
+
+    it("chaining with breaks should work", () => {
+        const value = 4;
+
+        const result = wennChain(value,
+            Case(Util.isNegative).Then(0),
+            Break(),
+            Case(Util.isPositive).Then(x => x + 1),
+            Case(Util.always).Then(x => x * 4),
+            Break(),
+            Case(Util.always).Then(x => x * 3)
+        );
+
+        expect(result).to.equal(20);
+    });
+
+});
+
+describe("wenn elvis", () => {
+
+    it("Elvis should work", () => {
+        const value = {
+            data: {
+                persons: [
+                    {
+                        name: {
+                            firstName: "a",
+                            lastName: "A"
+                        },
+                        age: 18
+                    },
+                    {
+                        name: {
+                            firstName: "b",
+                            lastName: "B"
+                        },
+                        age: 21
+                    },
+                    {
+                        name: {
+                            firstName: "c",
+                            lastName: "C"
+                        },
+                        age: 46
+                    }
+                ]
+            }
+        };
+
+        const result = wennElvis(value,
+            "data.persons",
+            arr => arr.find(v => v.age > 18),
+            "name.firstName"
+        );
+
+        expect(result).to.equal("b");
+    });
+
+    it("Elvis should safely return undefined", () => {
+        const value = {
+            data: {
+                persons: [
+                    {
+                        name: {
+                            firstName: "a",
+                            lastName: "A"
+                        },
+                        age: 18
+                    },
+                    {
+                        name: {
+                            firstName: "b",
+                            lastName: "B"
+                        },
+                        age: 21
+                    },
+                    {
+                        name: {
+                            firstName: "c",
+                            lastName: "C"
+                        },
+                        age: 46
+                    }
+                ]
+            }
+        };
+
+        const result = wennElvis(value,
+            "data.persons",
+            arr => arr.find(v => v.age > 100),
+            "name.firstName"
+        );
+
+        expect(result).to.equal(undefined);
+    });
+
+    it("Elvis should safely return undefined in property access", () => {
+        const value = {
+            data: {
+                persons: [
+                    {
+                        name: {
+                            firstName: "a",
+                            lastName: "A"
+                        },
+                        age: 18
+                    },
+                    {
+                        name: {
+                            firstName: "b",
+                            lastName: "B"
+                        },
+                        age: 21
+                    },
+                    {
+                        name: {
+                            firstName: "c",
+                            lastName: "C"
+                        },
+                        age: 46
+                    }
+                ]
+            }
+        };
+
+        const result = wennElvis(value,
+            "data.person",
+            arr => arr.find(v => v.age > 100),
+            "name.firstName"
+        );
+
+        expect(result).to.equal(undefined);
+    });
+
+    it("Elvis utility function 'elvis' should work for defined values", () => {
+        const value = { a: { b: 1 }};
+        const result = elvis(value, "a.b");
+
+        expect(result).to.equal(1);
+    });
+
+    it("Elvis utility function 'elvis' should work for undefined values", () => {
+        const value = { a: { b: 1 }};
+        const result = elvis(value, "a.c");
+
+        expect(result).to.equal(undefined);
+    });
+
+    it("Elvis utility function 'elvisCurried' should work", () => {
+        const value = { a: { b: 1 }};
+        const fn = elvisCurried("a.b");
+        const result = fn(value);
+
+        expect(result).to.equal(1);
+    });
 });
