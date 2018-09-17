@@ -18,7 +18,6 @@
     "TypeScript",
     "Utility"
   ],
-  "author": "Jan Malchert <janmalch@gmail.com> (https://github.com/JanMalch)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/JanMalch/wenn.js/issues"
