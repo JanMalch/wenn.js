@@ -11,9 +11,7 @@ npm install wenn.js --save
 
 ## Basic Usage
 
-### Assigning values
-
-```javascript  
+```javascript
 const value = "Foo";  
 
 const result = wenn(value,  
@@ -24,9 +22,7 @@ const result = wenn(value,
 // result == 0
 ```
 
-### Making function calls
-
-```javascript  
+```javascript
 const value = "Foo";  
 
 wenn(value,  
@@ -35,9 +31,7 @@ wenn(value,
 );  
 ```
 
-### `Else` usage
-
-```javascript  
+```javascript
 const value = "Test";  
 
 const result = wenn(value,  
@@ -51,7 +45,7 @@ const result = wenn(value,
 
 > If an Else case would be required but not found, there will be an error. You can always add `Else(undefined)`.
 
-```javascript  
+```javascript
 const value = "Test";  
 
 const result = wenn(value,  
@@ -149,7 +143,7 @@ when (x) {
 
 wenn.js
 
-```javascript 
+```javascript
 wenn(x,  
   Case(1).Then(() => console.log("x == 1")),  
   Case(2).Then(() => console.log("x == 2")),  
@@ -172,7 +166,7 @@ when (x) {
 
 wenn.js
 
-```javascript 
+```javascript
 wenn(x,  
   Case(0, 1).Then(() => console.log("x == 0 or x == 1")),  
   Else(() => console.log("otherwise"))  
@@ -194,7 +188,7 @@ when (x) {
 
 wenn.js
 
-```javascript 
+```javascript
 wenn(x,  
   Case(isNumeric(s)).Then(() => console.log("s encodes x")),  
   Else(() => console.log("s does not encode x"))  
@@ -218,7 +212,7 @@ when (x) {
 
 wenn.js
 
-```javascript 
+```javascript
 wenn(x,  
   Case(inRange(1, 10)).Then(() => console.log("x is in the range")),
   Case(inArray(validNumbers)).Then(() => console.log("x is valid")),
@@ -243,7 +237,7 @@ when {
 
 wenn.js
 
-```javascript 
+```javascript
 wenn(true,
     Case(x.isOdd()).Then("x is odd"),
     Case(x.isEven()).Then("x is even"),
