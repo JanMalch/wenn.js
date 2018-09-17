@@ -42,7 +42,9 @@ const result = wenn(value,
 
 // result == -1
 ``` 
+
 > If an Else case would be required but not found, there will be an error. You can always add `Else(undefined)`.
+
 ```javascript  
 const value = "Test";  
 
