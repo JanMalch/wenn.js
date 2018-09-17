@@ -11,6 +11,8 @@ npm install wenn.js --save
 
 ## Basic Usage
 
+### Assigning values
+
 ```javascript  
 const value = "Foo";  
 
@@ -22,6 +24,8 @@ const result = wenn(value,
 // result == 0
 ```  
 
+### Making function calls
+
 ```javascript  
 const value = "Foo";  
 
@@ -30,6 +34,8 @@ wenn(value,
   Case("Bar").Then(() => console.log("Value is 'Bar'"))
 );  
 ```  
+
+### `Else` usage
 
 ```javascript  
 const value = "Test";  
