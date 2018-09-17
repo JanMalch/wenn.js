@@ -22,7 +22,7 @@ const result = wenn(value,
 );  
 
 // result == 0
-```  
+```
 
 ### Making function calls
 
@@ -33,7 +33,7 @@ wenn(value,
   Case("Foo").Then(() => console.log("Value is 'Foo'")),  
   Case("Bar").Then(() => console.log("Value is 'Bar'"))
 );  
-```  
+```
 
 ### `Else` usage
 
@@ -47,7 +47,7 @@ const result = wenn(value,
 );  
 
 // result == -1
-``` 
+```
 
 > If an Else case would be required but not found, there will be an error. You can always add `Else(undefined)`.
 
@@ -60,7 +60,7 @@ const result = wenn(value,
 );  
 
 // ERROR: No case matched, but also no ELSE case given. You can add Else(undefined) to your cases to prevent an error.
-``` 
+```
 
 ### Usage in TypeScript
 
@@ -129,7 +129,6 @@ const result = wennElvis(value,
 // result === undefined, and no error
 ```
 
-
 You can look at some examples in the [test cases](https://github.com/JanMalch/wenn.js/blob/master/test/test.js).
 
 ## Comparison with Kotlin's `when`
@@ -156,7 +155,7 @@ wenn(x,
   Case(2).Then(() => console.log("x == 2")),  
   Else(() => console.log("x is neither 1 nor 2"))  
 );
-``` 
+```
 
 ___
 
@@ -178,7 +177,7 @@ wenn(x,
   Case(0, 1).Then(() => console.log("x == 0 or x == 1")),  
   Else(() => console.log("otherwise"))  
 );
-``` 
+```
 
 ___
 
@@ -200,7 +199,7 @@ wenn(x,
   Case(isNumeric(s)).Then(() => console.log("s encodes x")),  
   Else(() => console.log("s does not encode x"))  
 );
-``` 
+```
 
 ___
 
@@ -226,7 +225,7 @@ wenn(x,
   Case(not(inRange(10, 20))).Then(() => console.log("x is outside the range")),  
   Else(() => console.log("none of the above"))  
 );
-``` 
+```
 
 ___
 
