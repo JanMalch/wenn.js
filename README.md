@@ -1,3 +1,5 @@
+**Archived: let's wait for [pattern matching](https://github.com/tc39/proposal-pattern-matching#readme)**
+
 [![npm version](https://badge.fury.io/js/wenn.svg)](https://badge.fury.io/js/wenn) [![Build Status](https://travis-ci.org/JanMalch/wenn.js.svg?branch=master)](https://travis-ci.org/JanMalch/wenn.js) [![Coverage Status](https://coveralls.io/repos/github/JanMalch/wenn.js/badge.svg?branch=master)](https://coveralls.io/github/JanMalch/wenn.js?branch=master)
 
 # wenn.js
